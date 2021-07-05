@@ -1,0 +1,7 @@
+{
+  "name": "Sales-Ionic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

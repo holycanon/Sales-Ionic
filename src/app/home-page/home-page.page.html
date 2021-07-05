@@ -1,0 +1,181 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>
+			<span class="ion-float-start" (click)="change_language()">
+				<ion-icon class="zmdi zmdi-settings ion-text-start"></ion-icon>
+			</span>
+			<span class="title">Home</span>
+			<span class="ion-float-end" (click)="notification()">
+				<ion-icon class="zmdi zmdi-notifications ion-text-end"></ion-icon>
+			</span>
+		</ion-title>
+		<ion-buttons slot="end">
+			<ionic-context-menu style="color: rgb(48, 129, 48);" icon="settings">
+			  <!-- <ionic-context-menu-item icon="person" (click)="settingPhone()">Edit Profile</ionic-context-menu-item> -->
+			  <!-- <ionic-context-menu-item icon="person-circle" (click)="EditProfile()" >Edit Profile</ionic-context-menu-item> -->
+			  <!-- <ionic-context-menu-item icon="person-circle" (click)="companyList()">Company List</ionic-context-menu-item> -->
+			  <ionic-context-menu-item icon="log-out" (click)="LogOut()">Log Out</ionic-context-menu-item>
+			  
+			</ionic-context-menu>
+		  </ion-buttons>
+	</ion-toolbar>
+
+	<!-- <div class="profle_box d-flex" (click)="my_profile()">
+		<div class="profile_text">
+			<h2>{{name}}</h2>
+			<h3>{{email}}</h3>
+		</div>
+		<div class="img_box end center_img">
+			<img src="assets/images/avatar.png" class="crop_img">
+		</div>
+	</div> -->
+</ion-header>
+
+<ion-content class="bg_color">
+	<div class="container">
+		<div class="menu_container">
+			<ion-row>
+				<!-- <ion-col size="6">
+					<div class="menu d-flex" (click)="syllabus()">
+						<h2>Syllabus</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_syllabus.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="calender()">
+						<h2>Calender</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_calender.png">
+						</div>
+					</div>
+				</ion-col> -->
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="goExam()">
+						<h2>Sales Order</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_tests.png">
+						</div>
+					</div>
+				</ion-col>
+
+				<!-- <ion-col size="6">
+					<div class="menu d-flex" (click)="insight()">
+						<h2>Insights</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_insights.png">
+						</div>
+					</div>
+				</ion-col> -->
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="goCompany()">
+						<h2>Sales Return</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_about.png">
+						</div>
+					</div>
+				</ion-col>
+				<!-- <ion-col size="6">
+					<div class="menu d-flex" (click)="attendace()">
+						<h2>Sales Return</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_faculties.png">
+						</div>
+					</div>
+				</ion-col> -->
+				<!-- <ion-col size="6">
+					<div class="menu d-flex" (click)="support()">
+						<h2>Support</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_support.png">
+						</div>
+					</div>
+				</ion-col>
+			
+				 -->
+				<!-- <ion-col size="6">
+					<div class="menu d-flex" (click)="faculties_message()">
+						<h2>Messages</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_messages.png">
+						</div>
+					</div>
+				</ion-col>
+
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="syllabus()">
+						<h2>Syllabus</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_syllabus.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="calender()">
+						<h2>Calender</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_calender.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="tests()">
+						<h2>Tests</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_tests.png">
+						</div>
+					</div>
+				</ion-col>
+
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="insight()">
+						<h2>Insights</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_insights.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="about_academy()">
+						<h2>About</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_about.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="faculties()">
+						<h2>Faculities</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_faculties.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="support()">
+						<h2>Support</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_support.png">
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="6">
+					<div class="menu d-flex" (click)="faculties_message()">
+						<h2>Messages</h2>
+						<div class="menu_img end">
+							<img src="assets/images/ic_messages.png">
+						</div>
+					</div>
+				</ion-col> -->
+			</ion-row>
+		</div>
+	</div>
+
+	<!-- <div *ngIf="config.showBuyPromt" (click)="buyAppAction()" class="buy_this_app">
+		<h2>
+			<ion-icon class="zmdi zmdi-shopping-cart"></ion-icon>
+			Buy This App
+		</h2>
+	</div> -->
+</ion-content>
