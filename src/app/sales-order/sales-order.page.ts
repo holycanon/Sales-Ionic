@@ -22,7 +22,8 @@ export class SalesOrderPage implements OnInit {
   menu : string;
   api_url:string="https://project.graylite.com/anugrahsteel/";
   doc_no: string='';
-  browser_data: any = [];
+  // flow_state: string;
+  browser_data: any;
   data : any = [];
 
 
@@ -55,18 +56,19 @@ export class SalesOrderPage implements OnInit {
     formData.set('BDate',this.BDate);
     formData.set('menu',this.menu);
     this.http.post(this.api_url+'browser.php',formData)
-    .subscribe((response:any) => {
+    .subscribe((response) => {
+      console.log(response)
       if(response['message']=='error'){
         this.presentToast(response['message']);
       } else { 
         this.browser_data = response;
-        this.data = this.browser_data['data'];
+        this.data = this.browser_data.data;
         console.log(response);
         console.log(this.ADate);
         console.log(this.BDate);
         // console.log(this.EndTime);
         console.log(this.username);
-        // console.log(this.browser_data);
+        console.log(this.browser_data);
         console.log(this.data);
         // console.log(this.name);
       }

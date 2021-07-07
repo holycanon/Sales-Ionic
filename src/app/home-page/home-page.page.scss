@@ -9,6 +9,7 @@ ion-label{
 
 ion-header {
 	background: var(--primary);
+	height:5%;
 
 	ion-toolbar ion-title {
 		padding: 0 20px !important;
@@ -74,6 +75,7 @@ ion-content {
 	width: calc(100% - 40px);
 	padding-top:15px;
 	margin: 0 auto;
+	margin-top:15px;
 	position: relative;
 	z-index: 999;
 	padding-bottom: 60px;
