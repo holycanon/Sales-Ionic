@@ -160,7 +160,53 @@ ion-list {
     margin-bottom: 23px;
   }
 }
+}
+
+ion-grid {
+  --ion-grid-column-padding: 10px;
+  border-collapse: collapse;
+  border-style: hidden;
+  
+  ion-row:first-child {
+    background-color:  #2dd36f;
+    font-weight: bold;
+  }
+  ion-col {
+    border: 1px solid black;
+    border-bottom: 0;
+    border-right: 0;
+  }
+  ion-col:last-child {
+    border-right: 1px solid black;
+  }
+  
+  ion-row:last-child {
+    border-bottom: 1px solid black;
+  }
+
+  .edit {
+    background-color:rgb(255,0,127);
+    color: var(--white);
+    font-weight: 600;
+    font-size: .85rem;
+    height: 38px;
+    line-height: 38px;
+    position: relative;
+    overflow: hidden;
+    padding-right: 19px;
+    text-align:right;
 
 
+    &::after {
+        content: '';
+        position: absolute;
+        top: -14px;
+        left: -21px;
+        height: 138%;
+        width: 40px;
+        background: var(--white);
+        transform: rotate(27deg);
+    }
+}
 }
 

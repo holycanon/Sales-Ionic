@@ -59,6 +59,7 @@ export class LoginPage implements OnInit {
 
   async login(){
 
+    
     var formData : FormData = new FormData();
     formData.set('username', this.FormLogin.value['username']);
     formData.set('password',this.FormLogin.value['password']);
@@ -78,6 +79,7 @@ export class LoginPage implements OnInit {
         console.log(this.dataLogin.message);
         
       }else{
+        this.storage.set('username', this.FormLogin.value['username']);
         this.router.navigateByUrl("/home-page")
         this.presentToast(this.dataLogin.message);
         // console.log('username:'+this.dataLogin.data['username']);

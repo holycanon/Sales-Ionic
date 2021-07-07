@@ -14,7 +14,11 @@ export class HomePagePage implements OnInit {
   // email:string;
   // name:string; 
   // api_url:string="https://exam.nocortech.com/api/";
-  constructor( private route: Router, private platform: Platform, private http: HttpClient,private storage: Storage,) { }
+  constructor( 
+    private router: Router,
+    private platform: Platform, 
+    private http: HttpClient,
+    private storage: Storage,) { }
 
   ngOnInit() {
   
@@ -42,11 +46,11 @@ export class HomePagePage implements OnInit {
   } 
 
   salesOrder(){
-    this.route.navigate(['./salesorder']);
+    this.router.navigateByUrl("/sales-order")
   }
 
   salesReturn(){
-    this.route.navigate(['./salesreturn']);
+    this.router.navigate(['./salesreturn']);
   }
 
 
@@ -83,7 +87,7 @@ export class HomePagePage implements OnInit {
   LogOut(){
     this.storage.clear()
     .then(()=>
-      this.route.navigateByUrl('/login')
+      this.router.navigateByUrl('/login')
     );
   }
 
