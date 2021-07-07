@@ -4,6 +4,7 @@
 			<!-- <span class="ion-float-start" (click)="change_language()">
 				<ion-icon class="zmdi zmdi-settings ion-text-start"></ion-icon>
 			</span> -->
+			
 			<span class="title"><center>Home</center></span>
 			<!-- <span class="ion-float-end" (click)="notification()">
 				<ion-icon class="zmdi zmdi-notifications ion-text-end"></ion-icon>
@@ -11,24 +12,15 @@
 		</ion-title>
 		<ion-buttons slot="end">
 			<ionic-context-menu style="color: rgb(48, 129, 48);" icon="settings">
-			  <!-- <ionic-context-menu-item icon="person" (click)="settingPhone()">Edit Profile</ionic-context-menu-item> -->
-			  <!-- <ionic-context-menu-item icon="person-circle" (click)="EditProfile()" >Edit Profile</ionic-context-menu-item> -->
-			  <!-- <ionic-context-menu-item icon="person-circle" (click)="companyList()">Company List</ionic-context-menu-item> -->
-			  <ionic-context-menu-item icon="log-out" (click)="LogOut()">Log Out</ionic-context-menu-item>
-			  
+				<!-- <ionic-context-menu-item style="color:black;" icon="person-circle" value="{{username}}">User : </ionic-context-menu-item> -->
+				<!-- <ionic-context-menu-item icon="person" (click)="settingPhone()">Edit Profile</ionic-context-menu-item> -->
+				<!-- <ionic-context-menu-item icon="person-circle" (click)="EditProfile()" >Edit Profile</ionic-context-menu-item> -->
+				<!-- <ionic-context-menu-item icon="person-circle" (click)="companyList()">Company List</ionic-context-menu-item> -->
+				<ionic-context-menu-item icon="log-out" (click)="LogOut()">Log Out</ionic-context-menu-item>
 			</ionic-context-menu>
-		  </ion-buttons>
+		</ion-buttons>
 	</ion-toolbar>
 
-	<!-- <div class="profle_box d-flex" (click)="my_profile()">
-		<div class="profile_text">
-			<h2>{{name}}</h2>
-			<h3>{{email}}</h3>
-		</div>
-		<div class="img_box end center_img">
-			<img src="assets/images/avatar.png" class="crop_img">
-		</div>
-	</div> -->
 </ion-header>
 
 <ion-content class="bg_color">
@@ -51,6 +43,14 @@
 						</div>
 					</div>
 				</ion-col> -->
+
+				<ion-col size="20">
+					<div class="menu d-flex">
+						<ion-icon name ="person-circle"></ion-icon>
+						<ion-label value="username">{{username}}</ion-label>
+					</div>
+				</ion-col>
+
 				<ion-col size="6">
 					<div class="menu d-flex" (click)="salesOrder()">
 						<h2>Sales Order</h2>
