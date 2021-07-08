@@ -1,8 +1,12 @@
-import { Component, Inject ,OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { NgZone } from '@angular/core';
 import { NavController, AlertController, ToastController, Platform, LoadingController } from '@ionic/angular';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, ReactiveFormsModule  } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-home-page',
@@ -11,21 +15,24 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePagePage implements OnInit {
   subscription;
+  username:string;
   // email:string;
   // name:string; 
   // api_url:string="https://exam.nocortech.com/api/";
   constructor( 
-    private router: Router,
-    private platform: Platform, 
+    private alertCtrl: AlertController,
     private http: HttpClient,
-    private storage: Storage,) { }
+    public toastController: ToastController,
+    private storage: Storage,
+    private platform: Platform,
+    private router: Router,) { }
 
   ngOnInit() {
-  
+    
   }
 
   async ionViewWillEnter(){
-  //  await this.getUserData();
+     await this.getUsername();
   }
 
   ionViewDidEnter(){
@@ -44,6 +51,13 @@ export class HomePagePage implements OnInit {
     // this.nav.pop();
     this.subscription.unsubscribe();
   } 
+
+  async getUsername(){
+    await this.storage.get('username').then((val) => {
+      this.username = val
+    });
+    console.log(this.username);
+  }
 
   salesOrder(){
     this.router.navigateByUrl("/sales-order")

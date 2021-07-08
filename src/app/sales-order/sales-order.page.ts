@@ -21,9 +21,6 @@ export class SalesOrderPage implements OnInit {
   username : string;
   menu : string;
   api_url:string="https://project.graylite.com/anugrahsteel/";
-  // cust_desc: string;
-  // doc_date: any;
-  // doc_grandtotal : number;
   doc_no: string='';
   // flow_state: string;
   browser_data: any;
