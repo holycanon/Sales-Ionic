@@ -94,6 +94,7 @@ export class SalesOrderPage implements OnInit {
   doRefresh(event) {
     console.log('Begin async operation');
     setTimeout(() => {
+      this.filterSearch();
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);

@@ -125,10 +125,10 @@ ion-menu-button {
                        border-bottom: 1px solid #c0c0c0;
   
                        h3 {
-                           margin: 0;
+                           margin-top: 0;
                            font-size: 1.15rem;
                            font-weight: 600;
-                           margin-bottom: 5px;
+                           margin-bottom: 10px;
                        }
   
                        p {
@@ -137,6 +137,14 @@ ion-menu-button {
                            font-size: .75rem;
                            line-height: 10px;
                            font-weight: 400;
+                       }
+
+                       h5 {
+                            margin-top: 0;
+                            font-size: 1.0rem;
+                            font-weight: 400;
+                            margin-bottom: 5px;
+                            line-height: 10px;
                        }
                    }
   
