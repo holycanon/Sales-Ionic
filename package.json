@@ -51,6 +51,7 @@
     "es6-promise-plugin": "^4.1.0",
     "human-signals": "^2.1.0",
     "ionic-context-menu": "^5.0.0",
+    "ionic-selectable": "^4.8.0",
     "jetifier": "^2.0.0",
     "moment": "^2.29.1",
     "onesignal-cordova-plugin": "3.0.0-beta1",

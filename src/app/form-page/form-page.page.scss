@@ -13,6 +13,8 @@ ion-label {
 .size-lines{
     margin-right: 20px;
 }
+
+
 ion-grid {
     --ion-grid-column-padding: 10px;
     border-collapse: collapse;
@@ -20,12 +22,12 @@ ion-grid {
     margin-top: 15px;
     
     ion-row:first-child {
-      background-color:  #2dd36f;
+      background-color:  #fcfdfc;
       font-weight: bold;
     }
     ion-col {
       border: 1px solid black;
-      border-bottom: 0;
+      border-bottom: 1px;
       border-right: 0;
     }
     ion-col:last-child {

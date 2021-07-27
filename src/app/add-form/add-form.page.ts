@@ -8,17 +8,17 @@ import * as moment from 'moment';
 
 
 @Component({
-  selector: 'app-form-page',
-  templateUrl: './form-page.page.html',
-  styleUrls: ['./form-page.page.scss'],
+  selector: 'app-add-form',
+  templateUrl: './add-form.page.html',
+  styleUrls: ['./add-form.page.scss'],
 })
-export class FormPagePage implements OnInit {
+export class AddFormPage implements OnInit {
   tab: string = "form";
-  doc_id:any;
+  doc_id:any=-1;
   username:any;
   menu:any;
   api_url:string="https://project.graylite.com/anugrahsteel/";
-  dataForm:any;
+  dataForm=[];
   isEnabled:boolean=true;
   selectedRadioGroup: any;
   dataPickerWH:any;
@@ -28,9 +28,41 @@ export class FormPagePage implements OnInit {
   dataPickerCust2:any;
   dataPickerInvoice:any;
   currencyPipe:any;
+  doc_extern:any;
+  doc_date:any = moment().format("YYYY-MM-DD");
+  doc_deldate:any = moment().format("YYYY-MM-DD");
+  doc_orderstatus:any="1";
+  doc_deliverystatus:any="Diambil";
+  doc_term:any;
+  doc_duedate:any = moment().format("YYYY-MM-DD");
+  ware_id:any;
+  sales_id:any;
+  cust_id:any;
+  cust_tempNIK:any;
+  cust_tempdesc:any;
+  doc_deliveryaddress:any;
+  doc_deliverycity:any;
+  doc_pembayaran:any="2";
+  doc_umtitipan:any="1";
+  doc_total:any;
+  doc_discremark:any;
+  inputdiscvalue:any;
+  doc_discvalue:any;
+  doc_vattype:any;
+  doc_vat:any;
+  doc_ongkosangkut:any;
+  cust_idtemp:any;
+  invoice_id:any;
+  doc_ongkir:any;
+  doc_returremark:any;
+  doc_ongkosretur:any;
+  doc_remark:any;
+  item_id:any;
+  trans_qty:any;
+  trans_price:any;
+  trans_total:any;
 
   inputRowValues = [];
-  deletedRowValues = [];
   dataGrid:any;
 
   
@@ -42,48 +74,13 @@ export class FormPagePage implements OnInit {
       this.menu=val
       console.log(this.menu)
     });
-    await this.storage.get('doc_id').then((val) => {
-      this.doc_id = val
-      console.log(this.doc_id)
-    });
     await this.storage.get('username').then((val) => {
       this.username=val
     });
-    this.getDataForm();
+
     this.getDataPickerWH();
     this.getDataPickerSales();
  
-  }
-
-  async getDataForm(){
-
-    var formData : FormData = new FormData();
-    formData.set('username',this.username);
-    formData.set('doc_id',this.doc_id);
-    formData.set('menu',this.menu)
-    this.http.post(this.api_url+'form_get_data.php',formData)
-    .subscribe((data)=>{
-      this.dataForm=data['header'];
-      this.dataGrid=data['detail'];
-      this.inputRowValues=this.dataGrid;
-      console.log(this.dataGrid)
-      this.dataForm.forEach(async element => {
-        console.log(element.docflow_seq)
-        if(element.docflow_seq>1){
-          this.isEnabled=false;
-        }
-        if(element.sales_id!="" || element.sales_id!=0){
-          await this.getDataPickerCustomer();
-          await this.getDataPickerCustomer2();
-          await this.getDataPickerInvoice();
-        }
-        if(element.ware_id!="" || element.ware_id!=0){
-          console.log(element.ware_id)
-          this.getDataPickerItem();
-        }
-      })
-      console.log(this.dataForm);
-    });
   }
 
   async getDataPickerWH(){
@@ -111,9 +108,7 @@ export class FormPagePage implements OnInit {
   async getDataPickerItem(){
     var formData : FormData = new FormData();
     formData.set('username',this.username);
-    this.dataForm.forEach(element => {
-      formData.set('ware_id',element.ware_id)
-     });
+    formData.set('ware_id',this.ware_id)
     formData.set('category','item');
     this.http.post(this.api_url+'picker.php',formData)
     .subscribe((data)=>{
@@ -125,10 +120,7 @@ export class FormPagePage implements OnInit {
 
   async getDataPickerCustomer(){
     var formData : FormData = new FormData();
-    this.dataForm.forEach(element => {
-      formData.set('sales_id',element.sales_id)
-      // console.log('sales_id:'+element.sales_id)
-     });
+    formData.set('sales_id',this.sales_id)
     formData.set('username',this.username);
     formData.set('category','customer');
     this.http.post(this.api_url+'picker.php',formData)
@@ -140,9 +132,7 @@ export class FormPagePage implements OnInit {
 
   async getDataPickerCustomer2(){
     var formData : FormData = new FormData();
-    this.dataForm.forEach(element => {
-      formData.set('sales_id',element.sales_id)
-     });
+    formData.set('sales_id',this.sales_id)
     formData.set('username',this.username);
     formData.set('category','customer2');
     this.http.post(this.api_url+'picker.php',formData)
@@ -154,12 +144,10 @@ export class FormPagePage implements OnInit {
 
   async getDataPickerInvoice(){
     var formData : FormData = new FormData();
-    this.dataForm.forEach(element => {
-      formData.set('sales_id',element.sales_id)
-      formData.set('cust_id',element.cust_id)
-      formData.set('cust_idtemp',element.cust_idtemp)
-      formData.set('ware_id',element.ware_id)
-     });
+    formData.set('sales_id',this.sales_id)
+    formData.set('cust_id',this.cust_id)
+    formData.set('cust_idtemp',this.cust_idtemp)
+    formData.set('ware_id',this.ware_id)
     formData.set('username',this.username);
     formData.set('category','invoice');
     this.http.post(this.api_url+'picker.php',formData)
@@ -170,7 +158,37 @@ export class FormPagePage implements OnInit {
   }
 
   async saveForm(){
-
+    this.dataForm.push({
+      'doc_extern':this.doc_extern,
+      'doc_date':this.doc_date,
+      'doc_deldate':this.doc_deldate,
+      'doc_orderstatus':this.doc_orderstatus,
+      'doc_deliverystatus':this.doc_deliverystatus,
+      'doc_term':this.doc_term,
+      'doc_duedate':this.doc_duedate,
+      'ware_id':this.ware_id,
+      'sales_id':this.sales_id,
+      'cust_id':this.cust_id,
+      'cust_tempNIK':this.cust_tempNIK,
+      'cust_tempdesc':this.cust_tempdesc,
+      'doc_deliveryaddress':this.doc_deliveryaddress,
+      'doc_deliverycity':this.doc_deliverycity,
+      'doc_pembayaran':this.doc_pembayaran,
+      'doc_umtitipan':this.doc_umtitipan,
+      'doc_total':this.doc_total,
+      'doc_discremark':this.doc_discremark,
+      'inputdiscvalue':this.inputdiscvalue,
+      'doc_discvalue':this.doc_discvalue,
+      'doc_vattype':this.doc_vattype,
+      'doc_vat':this.doc_vat,
+      'doc_ongkosangkut':this.doc_ongkosangkut,
+      'cust_idtemp':this.cust_idtemp,
+      'invoice_id':this.invoice_id,
+      'doc_ongkir':this.doc_ongkir,
+      'doc_returremark':this.doc_returremark,
+      'doc_ongkosretur':this.doc_ongkosretur,
+      'doc_remark':this.doc_remark,
+    })
     var formData : FormData = new FormData();
     formData.set('username',this.username);
     formData.set('menu',this.menu);
@@ -179,12 +197,10 @@ export class FormPagePage implements OnInit {
 
     });
     formData.set('detail',JSON.stringify(this.inputRowValues));
-    formData.set('deleted',JSON.stringify(this.deletedRowValues)); 
-    this.http.post(this.api_url+'edit_form.php',formData)
+    this.http.post(this.api_url+'save_form.php',formData)
     .subscribe((response)=>{
       // window.location.reload();
       this.presentToast(response['message'])
-      this.getDataForm();
 
       console.log(response)
     });
@@ -211,15 +227,16 @@ export class FormPagePage implements OnInit {
   }
 
   addRow() {
-    this.inputRowValues.push({})
+    this.inputRowValues.push({'item_id':this.item_id,'trans_price':this.trans_price,'trans_qty':this.trans_qty,'trans_total':this.trans_total});
   }
 
   // removes entry from the  inputRowValues array based on the id
-  onDelete(index,doc_id,trans_id) {
-    this.deletedRowValues.push({'doc_id':doc_id,'trans_id':trans_id})
+  onDelete(index) {
     this.inputRowValues.splice(index,1)
     
   }
+
+  
 
 
 

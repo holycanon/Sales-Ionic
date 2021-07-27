@@ -24,28 +24,24 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let i of dataForm;let indexElement=index;" [ngSwitch]="tab">
+  <div  [ngSwitch]="tab">
     <ion-list  *ngSwitchCase="'form'">
       <div *ngIf="menu=='SO'">
         <ion-item>
-          <ion-label position="floating">Doc No</ion-label>
-          <ion-input type="text" readonly>{{i.doc_no}}</ion-input>
-        </ion-item>
-        <ion-item>
           <ion-label position="floating" >Extern No</ion-label>
-          <ion-input type="text" [disabled]="!isEnabled" [(ngModel)]="i.doc_extern">{{i.doc_extern==''?'':''}}</ion-input>
+          <ion-input type="text" [disabled]="!isEnabled" [(ngModel)]="doc_extern">{{doc_extern==''?'':''}}</ion-input>
         </ion-item>
         <ion-row>
           <ion-col size="6">
             <ion-item class="size-lines">
               <ion-label position="floating" >Date</ion-label>
-              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [disabled]="!isEnabled" [(ngModel)]="i.doc_date">{{i.doc_date}}</ion-datetime>
+              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [(ngModel)]="doc_date">{{doc_date}}</ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item>
               <ion-label position="floating" >Delivery Date</ion-label>
-              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [disabled]="!isEnabled" [(ngModel)]="i.doc_deldate">{{i.doc_deldate}}</ion-datetime>
+              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [(ngModel)]="doc_deldate">{{doc_deldate}}</ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col size="6">
@@ -56,7 +52,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_orderstatus"  value="{{i.doc_orderstatus}}" [disabled]="!isEnabled">
+                <ion-select placeholder="Select One" [(ngModel)]="doc_orderstatus"  value="{{doc_orderstatus}}">
                   <ion-select-option value="1">Order</ion-select-option>
                   <ion-select-option value="2">Pre Order</ion-select-option>
                 </ion-select>
@@ -71,7 +67,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item>
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_deliverystatus"  value="{{i.doc_deliverystatus}}" [disabled]="!isEnabled"> 
+                <ion-select placeholder="Select One" [(ngModel)]="doc_deliverystatus"  value="{{doc_deliverystatus}}"> 
                   <ion-select-option value="Diambil">Diambil</ion-select-option>
                   <ion-select-option value="Dikirim">Dikirim</ion-select-option>
                 </ion-select>
@@ -81,16 +77,16 @@
           <ion-col size="6">
             <ion-item class="size-lines">
               <ion-label position="floating">Term</ion-label>
-              <ion-input type="number" [disabled]="!isEnabled" [(ngModel)]="i.doc_term">{{i.doc_term}}</ion-input>
+              <ion-input type="number" [disabled]="!isEnabled" [(ngModel)]="doc_term"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item>
               <ion-label position="floating">Due Date</ion-label>
-              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [disabled]="!isEnabled" [(ngModel)]="i.doc_duedate">{{i.doc_duedate}}</ion-datetime>
+              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [(ngModel)]="doc_duedate"></ion-datetime>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col size="12">
             <ion-list>
               <ion-list-header>
                 <ion-label>
@@ -98,7 +94,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item>
-                <ion-select placeholder="Select One" [(ngModel)]="i.ware_id"  value="{{i.ware_id}}" [disabled]="!isEnabled">
+                <ion-select placeholder="Select One" [(ngModel)]="ware_id"  value="{{ware_id}}">
                   <ion-select-option *ngFor="let j of dataPickerWH" value="{{j.ware_id}}">{{j.ware_no}} ({{j.ware_desc}})</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -112,7 +108,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item style="font-size: 12px;" class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="i.sales_id"  value="{{i.sales_id}}" [disabled]="!isEnabled">
+                <ion-select placeholder="Select One" [(ngModel)]="sales_id"  value="{{sales_id}}">
                   <ion-select-option style="font-size: 12px;" *ngFor="let j of dataPickerSales" value="{{j.sales_id}}">{{j.sales_no}} ({{j.sales_name}})</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -126,7 +122,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;">
-                <ion-select placeholder="Select One" [(ngModel)]="i.cust_id"  value="{{i.cust_id}}" [disabled]="!isEnabled" >
+                <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -135,25 +131,25 @@
           <ion-col size="6">
             <ion-item class="size-lines" style="font-size: 12px;">
               <ion-label position="floating">NIK Customer</ion-label>
-              <ion-input type="number" [disabled]="!isEnabled" [(ngModel)]="i.cust_tempNIK"></ion-input>
+              <ion-input type="number"  [(ngModel)]="cust_tempNIK"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item class="size-lines" style="font-size: 12px;">
               <ion-label position="floating">Customer Temp</ion-label>
-              <ion-input type="text" [disabled]="!isEnabled" [(ngModel)]="i.cust_tempdesc"></ion-input>
+              <ion-input type="text"  [(ngModel)]="cust_tempdesc"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item class="size-lines" style="font-size: 12px;">
               <ion-label position="floating">Deliv. Address</ion-label>
-              <ion-textarea [(ngModel)]="i.doc_deliveryaddress" value="{{i.doc_deliveryaddress}}"></ion-textarea>
+              <ion-textarea [(ngModel)]="doc_deliveryaddress" value="{{doc_deliveryaddress}}"></ion-textarea>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item class="size-lines" style="font-size: 12px;">
               <ion-label position="floating">City</ion-label>
-              <ion-input style="margin-top: 22px;" type="text" [disabled]="!isEnabled" [(ngModel)]="i.doc_deliverycity"></ion-input>
+              <ion-input style="margin-top: 22px;" type="text" [(ngModel)]="doc_deliverycity"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
@@ -164,7 +160,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_pembayaran"  value="{{i.doc_pembayaran}}" [disabled]="!isEnabled" style="font-size: 12px;">
+                <ion-select placeholder="Select One" [(ngModel)]="doc_pembayaran"  value="{{doc_pembayaran}}" style="font-size: 12px;">
                   <ion-select-option value="2">Cash</ion-select-option>
                   <ion-select-option value="3">Bon</ion-select-option>
                   <ion-select-option value="4">Giro</ion-select-option>
@@ -181,41 +177,23 @@
                 </ion-label>
               </ion-list-header>
               <ion-item class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_umtitipan"  value="{{i.doc_umtitipan}}" [disabled]="!isEnabled" style="font-size: 12px;">
+                <ion-select placeholder="Select One" [(ngModel)]="doc_umtitipan"  value="{{doc_umtitipan}}" style="font-size: 12px;">
                   <ion-select-option value="1">Uang Muka</ion-select-option>
                   <ion-select-option value="2">Titipan</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-list>
           </ion-col>
-          <ion-col size="12">
-            <ion-item>
-              <ion-label position="floating">Total</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_total" readonly></ion-input>
-            </ion-item>
-          </ion-col>
           <ion-col size="6">
             <ion-item class="size-lines">
               <ion-label position="floating">Discount (%)</ion-label>
-              <ion-input type="number" [disabled]="!isEnabled" [(ngModel)]="i.doc_discremark"></ion-input>
+              <ion-input type="number" [(ngModel)]="doc_discremark"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item>
-              <ion-label position="floating"></ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" readonly>{{(i.doc_total*i.doc_discfactor)}}</ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item>
               <ion-label position="floating">Discount Rp</ion-label>
-              <ion-input type="number" [disabled]="!isEnabled" [(ngModel)]="i.inputdiscvalue"></ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item>
-              <ion-label position="floating">Total Discount</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_discvalue"></ion-input>
+              <ion-input type="number" [(ngModel)]="inputdiscvalue"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
@@ -224,7 +202,7 @@
                 <ion-label>
                   PPN
                 </ion-label>
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_vattype"  value="{{i.doc_vattype}}" [disabled]="!isEnabled" style="font-size: 12px;">
+                <ion-select placeholder="Select One" [(ngModel)]="doc_vattype"  value="{{doc_vattype}}" style="font-size: 12px;">
                   <ion-select-option value="2">Include</ion-select-option>
                   <ion-select-option value="3">Non PPN</ion-select-option>
                 </ion-select>
@@ -233,42 +211,24 @@
           </ion-col>
           <ion-col size="6">
             <ion-item>
-              <ion-label position="floating">Total</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_vat" readonly>{{i.doc_vat}}</ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item>
               <ion-label position="floating">Ongkos Angkut</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_ongkosangkut"></ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item>
-              <ion-label position="floating">Grand Total</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" value="{{i.doc_grandtotal}}" readonly>{{(i.doc_total-i.doc_discvalue)+i.doc_vat+i.doc_ongkosangkut==''?'':''}}</ion-input>
+              <ion-input type="decimal" [(ngModel)]="doc_ongkosangkut"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
       </div>
       <div *ngIf="menu=='SR'">
         <ion-row>
-          <ion-col size="6">
-            <ion-item class="size-lines">
-              <ion-label position="floating">Doc No</ion-label>
-              <ion-input type="text" readonly>{{i.doc_no}}</ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="6">
+          <ion-col size="12">
             <ion-item class="size-lines">
               <ion-label position="floating" >Date</ion-label>
-              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [disabled]="!isEnabled" [(ngModel)]="i.doc_date">{{i.doc_date}}</ion-datetime>
+              <ion-datetime displayFormat = "YYYY-MM-DD" placeholder="Select Date" [(ngModel)]="doc_date">{{doc_date}}</ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col size="12">
           <ion-item>
               <ion-label position="floating" >Extern No</ion-label>
-              <ion-input type="text" [disabled]="!isEnabled" [(ngModel)]="i.doc_extern">{{i.doc_extern==''?'':''}}</ion-input>
+              <ion-input type="text" [(ngModel)]="doc_extern">{{doc_extern==''?'':''}}</ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
@@ -279,7 +239,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item>
-                <ion-select placeholder="Select One" [(ngModel)]="i.ware_id"  value="{{i.ware_id}}" [disabled]="!isEnabled">
+                <ion-select placeholder="Select One" [(ngModel)]="ware_id"  value="{{ware_id}}">
                   <ion-select-option *ngFor="let j of dataPickerWH" value="{{j.ware_id}}">{{j.ware_no}} ({{j.ware_desc}})</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -293,7 +253,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item style="font-size: 12px;" class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="i.sales_id"  value="{{i.sales_id}}" [disabled]="!isEnabled">
+                <ion-select placeholder="Select One" [(ngModel)]="sales_id"  value="{{sales_id}}">
                   <ion-select-option style="font-size: 12px;" *ngFor="let j of dataPickerSales" value="{{j.sales_id}}">{{j.sales_no}} ({{j.sales_name}})</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -307,7 +267,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;">
-                <ion-select placeholder="Select One" [(ngModel)]="i.cust_id"  value="{{i.cust_id}}" [disabled]="!isEnabled" >
+                <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -321,7 +281,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item (click)="getDataPickerCustomer2()" style="font-size: 12px;" class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="i.cust_idtemp"  value="{{i.cust_idtemp}}" [disabled]="!isEnabled" >
+                <ion-select placeholder="Select One" [(ngModel)]="cust_idtemp"  value="{{cust_idtemp}}">
                   <ion-select-option *ngFor="let j of dataPickerCust2" value="{{j.cust_idtemp}}">{{j.cust_tempdesc}}</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -335,7 +295,7 @@
                 </ion-label>
               </ion-list-header>
               <ion-item (click)="getDataPickerInvoice()" style="font-size: 12px;">
-                <ion-select placeholder="Select One" [(ngModel)]="i.invoice_id"  value="{{i.invoice_id}}" [disabled]="!isEnabled" >
+                <ion-select placeholder="Select One" [(ngModel)]="invoice_id"  value="{{invoice_id}}">
                   <ion-select-option *ngFor="let j of dataPickerInvoice" value="{{j.invoice_id}}">{{j.invoice_no}}</ion-select-option>
                 </ion-select>  
               </ion-item>
@@ -344,7 +304,7 @@
           <ion-col size="12">
             <ion-item>
               <ion-label position="floating">Total</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_total" readonly></ion-input>
+              <ion-input type="decimal" [(ngModel)]="doc_total" readonly></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
@@ -353,7 +313,7 @@
                 <ion-label>
                   PPN
                 </ion-label>
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_vattype"  value="{{i.doc_vattype}}" [disabled]="!isEnabled" style="font-size: 12px;">
+                <ion-select placeholder="Select One" [(ngModel)]="doc_vattype"  value="{{doc_vattype}}" style="font-size: 12px;">
                   <ion-select-option value="2">Include</ion-select-option>
                 </ion-select>
               </ion-item>
@@ -361,23 +321,17 @@
           </ion-col>
           <ion-col size="6">
             <ion-item>
-              <ion-label position="floating">Total</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_vat" readonly></ion-input>
+              <ion-label position="floating">Ongkir</ion-label>
+              <ion-input type="decimal" [(ngModel)]="doc_ongkir"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12">
-            <ion-item>
-              <ion-label position="floating">Ongkir</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_ongkir"></ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="6">
             <ion-list>
               <ion-item class="size-lines">
                 <ion-label>
                   Retur (%)
                 </ion-label>
-                <ion-select placeholder="Select One" [(ngModel)]="i.doc_returremark"  value="{{i.doc_returremark}}" [disabled]="!isEnabled" style="font-size: 12px;">
+                <ion-select placeholder="Select One" [(ngModel)]="doc_returremark"  value="{{doc_returremark}}" style="font-size: 12px;">
                   <ion-select-option value="1">1</ion-select-option>
                   <ion-select-option value="2">2</ion-select-option>
                   <ion-select-option value="3">3</ion-select-option>
@@ -385,28 +339,17 @@
               </ion-item>
             </ion-list>
           </ion-col>
-          <ion-col size="6">
-            <ion-item>
-              <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_ongkosretur" readonly>{{(i.doc_total+i.doc_ongkir)*i.doc_returfactor==''?'':''}}</ion-input>
-            </ion-item>
-          </ion-col>
-          <ion-col size="12">
-            <ion-item>
-              <ion-label position="floating">Grandtotal</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" readonly>{{i.doc_total+i.doc_ongkir+i.doc_vat==''?'':''}}</ion-input>
-            </ion-item>
-          </ion-col>
           <ion-col size="12">
             <ion-item class="size-lines" style="font-size: 12px;">
               <ion-label position="floating">Remark</ion-label>
-              <ion-textarea [(ngModel)]="i.doc_remark" value="{{i.doc_remark}}"></ion-textarea>
+              <ion-textarea [(ngModel)]="i.doc_remark" value="{{doc_remark}}"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
       </div>
     </ion-list>
     <div>
-      <ion-list *ngSwitchCase="'grid'">
+      <ion-list *ngSwitchCase="'grid'" (click)="getDataPickerItem()">
         <div padding>
           <ion-button (click)="addRow()" expand="block" color="primary">Add New Row Item</ion-button>
           <div padding style="opacity: .4;">Swipe Row Items To Delete...</div>
@@ -467,19 +410,22 @@
               </ion-col>
               <ion-col col-sm>
                 <ion-item style="font-size: 10px;width: 70px;margin-right: 5px;">
-                  <ion-input placeholder="Total" type="number" [(ngModel)]="data.trans_total" readonly>{{data.trans_qty*data.trans_price==''?'':''}}</ion-input>
+                  <ion-input placeholder="Total" type="number" [(ngModel)]="data.trans_total" value="{{data.trans_qty*data.trans_price}}"readonly></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
           </ion-item>
           <ion-item-options side="end" >
-            <ion-button color="danger"  style="margin-top: auto;margin-bottom: auto;" (click)="onDelete(ii,data.doc_id,data.trans_id)">DELETE</ion-button>
+            <ion-button color="danger"  style="margin-top: auto;margin-bottom: auto;" (click)="onDelete(ii)">DELETE</ion-button>
           </ion-item-options>
         </ion-item-sliding>
       </div>    
       </ion-grid>
+          <!-- <app-input-row [data]="i" (onDelete)="onDelete($event)"></app-input-row> -->
       </ion-list>
     </div>
+    <h4>Results</h4>
+    <pre style="font-size:smaller"> {{inputRowValues | json}} </pre>
   </div>
 </ion-content>
 <ion-footer>

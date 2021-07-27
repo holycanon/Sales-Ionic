@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'form-page',
     loadChildren: () => import('./form-page/form-page.module').then( m => m.FormPagePageModule)
   },
+  {
+    path: 'add-form',
+    loadChildren: () => import('./add-form/add-form.module').then( m => m.AddFormPageModule)
+  },
 
 ];
 

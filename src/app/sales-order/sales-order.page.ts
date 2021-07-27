@@ -112,6 +112,10 @@ export class SalesOrderPage implements OnInit {
     this.router.navigateByUrl('/home-page');
   }
 
+  addForm(){
+    this.router.navigateByUrl('/add-form');
+  }
+
   async presentToast(Message) {
     const toast = await this.toastController.create({
       message: Message,

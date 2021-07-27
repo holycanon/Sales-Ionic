@@ -7,14 +7,23 @@ import { IonicModule } from '@ionic/angular';
 import { FormPagePageRoutingModule } from './form-page-routing.module';
 
 import { FormPagePage } from './form-page.page';
+import { IonicSelectableModule } from 'ionic-selectable';
+// import {InputRowComponent} from './input-row/input-row.component'
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FormPagePageRoutingModule
+    FormPagePageRoutingModule,
+    IonicSelectableModule
+
   ],
-  declarations: [FormPagePage]
+  declarations: [FormPagePage,
+    // InputRowComponent
+  ],
+  // exports: [
+  //   InputRowComponent
+  // ]
 })
 export class FormPagePageModule {}
