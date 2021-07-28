@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
 
+
 @Component({
   selector: 'app-sales-order',
   templateUrl: './sales-order.page.html',
@@ -25,6 +26,7 @@ export class SalesOrderPage implements OnInit {
   // flow_state: string;
   browser_data: any;
   data : any = [];
+  
 
 
   constructor(
@@ -36,18 +38,19 @@ export class SalesOrderPage implements OnInit {
     private storage: Storage,
     private platform: Platform,
     private router: Router,
+    public navCtrl: NavController
   ) { }
 
-  ngOnInit() {
-  }
-
-  async filterSearch(){
+  async ngOnInit() {
+    await this.storage.get('menu').then((val) => {
+      this.menu=val
+    });
     await this.storage.get('username').then((val) => {
       this.username = val
     });
-    this.menu = "SO";
+  }
 
-    
+  async filterSearch(){
     // this.getCompany(this.email);
     var formData : FormData = new FormData();
     formData.set('doc_no',this.doc_no);
@@ -75,8 +78,42 @@ export class SalesOrderPage implements OnInit {
     });
   }
 
+  async sendDocID(doc_id){
+    await this.storage.set('doc_id',doc_id);
+    this.router.navigate(['/form-page']);
+  }
+
+  async alertEdit(doc_id) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmation',
+      message: 'Are you sure want to edit this document ?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'OK',
+          handler: () => {
+            this.sendDocID(doc_id);
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   backPage(){
     this.router.navigateByUrl('/home-page');
+  }
+
+  addForm(){
+    this.router.navigateByUrl('/add-form');
   }
 
   async presentToast(Message) {

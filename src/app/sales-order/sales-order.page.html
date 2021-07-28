@@ -1,17 +1,17 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start" >
-      <ion-button style="color: black;" (click)="backPage()">
+      <ion-button style="color: white;" (click)="backPage()">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
 		</ion-buttons>
-		<ion-title align="center">Sales Order</ion-title>
+		<ion-title *ngIf="menu=='SO'" align="center">Sales Order</ion-title>
+    <ion-title *ngIf="menu=='SR'" align="center">Sales Return</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card class=filter>
-
       <ion-item lines="none">
         <ion-label> Doc No. </ion-label>
         <ion-input placeholder="Input Doc No." [(ngModel)]="doc_no" align="right"></ion-input>
@@ -26,7 +26,11 @@
       </ion-item>
     
   </ion-card>
-  <ion-button size="default" expand ="full" class="btn" (click)="filterSearch()">Confirm</ion-button>
+  <center><ion-button size="default" expand ="full" class="btn" (click)="filterSearch()">Confirm</ion-button></center>
+  <center><ion-button size="default" class="btn" color ="light"(click)="addForm()">
+    <ion-icon name="add-circle-outline">
+      Add
+    </ion-icon></ion-button></center>
   <ion-content class="bg_color">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content  
@@ -38,13 +42,13 @@
     <div class="tab_container">
       <div *ngFor="let i of data">
         <ion-list lines="none">
-            <ion-item>
+            <ion-item (click)="alertEdit(i.doc_id)">
               <div class="item_container">
                 <div class="syllabus">
                   <h3>Doc No&nbsp;&nbsp;: {{i.doc_no}}</h3>
                   <h5>Customer&nbsp;: {{i.cust_desc}}</h5>
                   <h5>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{i.doc_date}}</h5>
-                  <h5>Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Rp.{{i.doc_grandtotal}}</h5>
+                  <h5>Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Rp {{i.doc_grandtotal}}</h5>
                 </div>
                 <ion-row>
                   <ion-col size="7">

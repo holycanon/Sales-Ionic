@@ -60,11 +60,13 @@ export class HomePagePage implements OnInit {
   }
 
   salesOrder(){
+    this.storage.set('menu','SO')
     this.router.navigateByUrl("/sales-order")
   }
 
   salesReturn(){
-    this.router.navigate(['./salesreturn']);
+    this.storage.set('menu','SR')
+    this.router.navigateByUrl("/sales-order")
   }
 
 
