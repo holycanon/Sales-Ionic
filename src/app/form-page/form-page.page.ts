@@ -73,13 +73,13 @@ export class FormPagePage implements OnInit {
           this.isEnabled=false;
         }
         if(element.sales_id!="" || element.sales_id!=0){
-          await this.getDataPickerCustomer();
-          await this.getDataPickerCustomer2();
-          await this.getDataPickerInvoice();
+          this.getDataPickerCustomer(element.sales_id);
+          this.getDataPickerCustomer2(element.sales_id);
+          await this.getDataPickerInvoice(element.sales_id,element.cust_id, element.cust_idtemp,element.ware_id);
         }
         if(element.ware_id!="" || element.ware_id!=0){
           console.log(element.ware_id)
-          this.getDataPickerItem();
+          this.getDataPickerItem(element.ware_id);
         }
       })
       console.log(this.dataForm);
@@ -108,12 +108,10 @@ export class FormPagePage implements OnInit {
     });
   }
 
-  async getDataPickerItem(){
+  async getDataPickerItem(ware_id){
     var formData : FormData = new FormData();
     formData.set('username',this.username);
-    this.dataForm.forEach(element => {
-      formData.set('ware_id',element.ware_id)
-     });
+    formData.set('ware_id',ware_id)
     formData.set('category','item');
     this.http.post(this.api_url+'picker.php',formData)
     .subscribe((data)=>{
@@ -123,12 +121,10 @@ export class FormPagePage implements OnInit {
     });
   }
 
-  async getDataPickerCustomer(){
+  async getDataPickerCustomer(sales_id){
     var formData : FormData = new FormData();
-    this.dataForm.forEach(element => {
-      formData.set('sales_id',element.sales_id)
-      // console.log('sales_id:'+element.sales_id)
-     });
+    formData.set('sales_id',sales_id)
+      // consol.log('sales_id:'+element.sales_id)
     formData.set('username',this.username);
     formData.set('category','customer');
     this.http.post(this.api_url+'picker.php',formData)
@@ -138,11 +134,9 @@ export class FormPagePage implements OnInit {
     });
   }
 
-  async getDataPickerCustomer2(){
+  async getDataPickerCustomer2(sales_id){
     var formData : FormData = new FormData();
-    this.dataForm.forEach(element => {
-      formData.set('sales_id',element.sales_id)
-     });
+    formData.set('sales_id',sales_id)
     formData.set('username',this.username);
     formData.set('category','customer2');
     this.http.post(this.api_url+'picker.php',formData)
@@ -152,14 +146,12 @@ export class FormPagePage implements OnInit {
     });
   }
 
-  async getDataPickerInvoice(){
+  async getDataPickerInvoice(sales_id,cust_id,cust_idtemp,ware_id){
     var formData : FormData = new FormData();
-    this.dataForm.forEach(element => {
-      formData.set('sales_id',element.sales_id)
-      formData.set('cust_id',element.cust_id)
-      formData.set('cust_idtemp',element.cust_idtemp)
-      formData.set('ware_id',element.ware_id)
-     });
+    formData.set('sales_id',sales_id)
+    formData.set('cust_id',cust_id)
+    formData.set('cust_idtemp',cust_idtemp)
+    formData.set('ware_id',ware_id)
     formData.set('username',this.username);
     formData.set('category','invoice');
     this.http.post(this.api_url+'picker.php',formData)

@@ -125,7 +125,7 @@
                   Customer
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;">
+              <ion-item (click)="getDataPickerCustomer(i.sales_id)" style="font-size: 12px;">
                 <ion-select placeholder="Select One" [(ngModel)]="i.cust_id"  value="{{i.cust_id}}" [disabled]="!isEnabled" >
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
                 </ion-select>  
@@ -306,7 +306,7 @@
                   Customer
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;">
+              <ion-item (click)="getDataPickerCustomer(i.sales_id)" style="font-size: 12px;">
                 <ion-select placeholder="Select One" [(ngModel)]="i.cust_id"  value="{{i.cust_id}}" [disabled]="!isEnabled" >
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
                 </ion-select>  
@@ -320,7 +320,7 @@
                   Custo Temporary
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerCustomer2()" style="font-size: 12px;" class="size-lines">
+              <ion-item (click)="getDataPickerCustomer2(i.sales_id)" style="font-size: 12px;" class="size-lines">
                 <ion-select placeholder="Select One" [(ngModel)]="i.cust_idtemp"  value="{{i.cust_idtemp}}" [disabled]="!isEnabled" >
                   <ion-select-option *ngFor="let j of dataPickerCust2" value="{{j.cust_idtemp}}">{{j.cust_tempdesc}}</ion-select-option>
                 </ion-select>  
@@ -334,7 +334,7 @@
                   Invoice
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerInvoice()" style="font-size: 12px;">
+              <ion-item (click)="getDataPickerInvoice(i.sales_id,i.cust_id,i.cust_idtemp,i.ware_id)" style="font-size: 12px;">
                 <ion-select placeholder="Select One" [(ngModel)]="i.invoice_id"  value="{{i.invoice_id}}" [disabled]="!isEnabled" >
                   <ion-select-option *ngFor="let j of dataPickerInvoice" value="{{j.invoice_id}}">{{j.invoice_no}}</ion-select-option>
                 </ion-select>  

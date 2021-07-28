@@ -44,18 +44,18 @@ export class AddFormPage implements OnInit {
   doc_deliverycity:any;
   doc_pembayaran:any="2";
   doc_umtitipan:any="1";
-  doc_total:any;
-  doc_discremark:any;
-  inputdiscvalue:any;
-  doc_discvalue:any;
+  doc_total:any=0;
+  doc_discremark:any=0;
+  inputdiscvalue:any=0;
+  doc_discvalue:any=0;
   doc_vattype:any;
   doc_vat:any;
-  doc_ongkosangkut:any;
+  doc_ongkosangkut:any=0;
   cust_idtemp:any;
   invoice_id:any;
-  doc_ongkir:any;
-  doc_returremark:any;
-  doc_ongkosretur:any;
+  doc_ongkir:any=0;
+  doc_returremark:any=0;
+  doc_ongkosretur:any=0;
   doc_remark:any;
   item_id:any;
   trans_qty:any;
@@ -200,7 +200,15 @@ export class AddFormPage implements OnInit {
     this.http.post(this.api_url+'save_form.php',formData)
     .subscribe((response)=>{
       // window.location.reload();
-      this.presentToast(response['message'])
+      if(response['error']==true){
+        this.presentToast(response['message']);
+      }else{
+        this.presentToast(response['message']);
+        this.storage.set('doc_id',response['doc_id']);
+        this.router.navigateByUrl('/form-page');
+      }
+      
+      
 
       console.log(response)
     });
@@ -221,7 +229,7 @@ export class AddFormPage implements OnInit {
     const toast = await this.toastController.create({
       message: Message,
       duration: 2500,
-      position: "bottom"
+      position: "bottom",
     });
     toast.present();
   }
