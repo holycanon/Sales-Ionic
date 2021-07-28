@@ -20,7 +20,14 @@
 			</ionic-context-menu>
 		</ion-buttons>
 	</ion-toolbar>
-
+	
+	<ion-col size="20">
+		<div class="icon-person">
+			<!-- <ion-icon name ="person-circle" style="color:white;"></ion-icon> -->
+			<ion-label value="username">username : {{username}}</ion-label>
+		</div>
+	</ion-col>
+	
 </ion-header>
 
 <ion-content class="bg_color">
@@ -44,12 +51,7 @@
 					</div>
 				</ion-col> -->
 
-				<ion-col size="20">
-					<div class="menu d-flex">
-						<ion-icon name ="person-circle"></ion-icon>
-						<ion-label value="username">{{username}}</ion-label>
-					</div>
-				</ion-col>
+				
 
 				<ion-col size="6">
 					<div class="menu d-flex" (click)="salesOrder()">

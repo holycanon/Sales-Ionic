@@ -26,7 +26,7 @@
       </ion-item>
     
   </ion-card>
-  <center><ion-button size="default" expand ="full" class="btn" (click)="filterSearch()">Confirm</ion-button></center>
+  <ion-button size="default" expand ="full" class="btn" (click)="filterSearch()">Confirm</ion-button>
   <ion-content class="bg_color">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content  
@@ -44,7 +44,7 @@
                   <h3>Doc No&nbsp;&nbsp;: {{i.doc_no}}</h3>
                   <h5>Customer&nbsp;: {{i.cust_desc}}</h5>
                   <h5>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{i.doc_date}}</h5>
-                  <h5>Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{i.doc_grandtotal}}</h5>
+                  <h5>Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Rp.{{i.doc_grandtotal}}</h5>
                 </div>
                 <ion-row>
                   <ion-col size="7">
