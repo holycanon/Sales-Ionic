@@ -26,11 +26,8 @@
       </ion-item>
     
   </ion-card>
-  <center><ion-button size="default" expand ="full" class="btn" (click)="filterSearch()">Confirm</ion-button></center>
-  <center><ion-button size="default" class="btn" color ="light"(click)="addForm()">
-    <ion-icon name="add-circle-outline">
-      Add
-    </ion-icon></ion-button></center>
+    <center><ion-button size="default" expand ="full" class="btn" (click)="filterSearch()">Confirm</ion-button></center>
+    
   <ion-content class="bg_color">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content  
@@ -67,9 +64,16 @@
             </ion-item>
           
         </ion-list>
+        
       </div>
       </div>
+      
   </ion-content>
+  <ion-footer>
+    <center><ion-button size="default" class="btn" color ="primary" (click)="addForm()">
+      <ion-icon name="add-circle-outline" size="large">
+      </ion-icon>Add</ion-button></center>
+  </ion-footer>
 </ion-content>
 
 
