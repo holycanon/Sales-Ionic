@@ -361,7 +361,7 @@
           </ion-col>
           <ion-col size="6">
             <ion-item>
-              <ion-label position="floating">Total</ion-label>
+              <ion-label position="floating">Value</ion-label>
               <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_vat" readonly></ion-input>
             </ion-item>
           </ion-col>
@@ -378,6 +378,7 @@
                   Retur (%)
                 </ion-label>
                 <ion-select placeholder="Select One" [(ngModel)]="i.doc_returremark"  value="{{i.doc_returremark}}" [disabled]="!isEnabled" style="font-size: 12px;">
+                  <ion-select-option value="0">0</ion-select-option>
                   <ion-select-option value="1">1</ion-select-option>
                   <ion-select-option value="2">2</ion-select-option>
                   <ion-select-option value="3">3</ion-select-option>
@@ -387,13 +388,14 @@
           </ion-col>
           <ion-col size="6">
             <ion-item>
+              <ion-label position="floating">Value</ion-label>
               <ion-input type="decimal" [disabled]="!isEnabled" [(ngModel)]="i.doc_ongkosretur" readonly>{{(i.doc_total+i.doc_ongkir)*i.doc_returfactor==''?'':''}}</ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12">
             <ion-item>
               <ion-label position="floating">Grandtotal</ion-label>
-              <ion-input type="decimal" [disabled]="!isEnabled" readonly>{{i.doc_total+i.doc_ongkir+i.doc_vat==''?'':''}}</ion-input>
+              <ion-input type="decimal" [disabled]="!isEnabled" value="{{i.doc_total+i.doc_ongkir+i.doc_vat}}" readonly></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12">
@@ -438,11 +440,12 @@
               <ion-col col-sm>
                 <ion-item style="font-size: 10px;width: 120px;margin-right: 5px;">
                   <ionic-selectable 
-                  [(ngModel)]="data.item_id" [items]="dataPickerItem"
+                  [(ngModel)]="data.item_id" [items]="ports"
                   itemValueField="item_id"
                   itemTextField="item_desc"
                   [canSearch]="true"
-                  [shouldStoreItemValue]="true">
+                  (onSearch)="searchPorts($event)"
+                  (onChange)="portChange($event)">
                   <ng-template ionicSelectableTitleTemplate>
                     Item List
                   </ng-template>
@@ -467,7 +470,7 @@
               </ion-col>
               <ion-col col-sm>
                 <ion-item style="font-size: 10px;width: 70px;margin-right: 5px;">
-                  <ion-input placeholder="Total" type="number" [(ngModel)]="data.trans_total" readonly>{{data.trans_qty*data.trans_price==''?'':''}}</ion-input>
+                  <ion-input placeholder="Total" type="number" [(ngModel)]="data.trans_total" value="{{data.trans_qty*data.trans_price}}" readonly></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -480,6 +483,8 @@
       </ion-grid>
       </ion-list>
     </div>
+        <h4>Results</h4>
+    <pre style="font-size:smaller"> {{inputRowValues | json}} </pre>
   </div>
 </ion-content>
 <ion-footer>

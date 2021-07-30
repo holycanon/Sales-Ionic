@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { error } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
+import { PortService } from '../services/port.service';
+import { Port } from '../types/port';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 
 @Component({
@@ -27,7 +31,6 @@ export class AddFormPage implements OnInit {
   dataPickerCust:any;
   dataPickerCust2:any;
   dataPickerInvoice:any;
-  currencyPipe:any;
   doc_extern:any;
   doc_date:any = moment().format("YYYY-MM-DD");
   doc_deldate:any = moment().format("YYYY-MM-DD");
@@ -48,13 +51,13 @@ export class AddFormPage implements OnInit {
   doc_discremark:any=0;
   inputdiscvalue:any=0;
   doc_discvalue:any=0;
-  doc_vattype:any;
+  doc_vattype:any="2";
   doc_vat:any;
   doc_ongkosangkut:any=0;
   cust_idtemp:any;
   invoice_id:any;
   doc_ongkir:any=0;
-  doc_returremark:any=0;
+  doc_returremark:any="0";
   doc_ongkosretur:any=0;
   doc_remark:any;
   item_id:any;
@@ -64,10 +67,13 @@ export class AddFormPage implements OnInit {
 
   inputRowValues = [];
   dataGrid:any;
+  ports: Port[];
+  port: Port;
+  portsSubscription: Subscription;
 
   
   constructor(private storage: Storage,public loadingCtrl: LoadingController, public toastController: ToastController,
-              private http: HttpClient,private router: Router,public navCtrl: NavController) { }
+              private http: HttpClient,private router: Router,public navCtrl: NavController,private portService: PortService) { }
 
   async ngOnInit() {
     await this.storage.get('menu').then((val) => {
@@ -242,6 +248,48 @@ export class AddFormPage implements OnInit {
   onDelete(index) {
     this.inputRowValues.splice(index,1)
     
+  }
+
+  filterPorts(ports: Port[], text: string) {
+    return ports.filter(port => {
+      return port.item_desc.toLowerCase().indexOf(text) !== -1 ||
+        port.item_no.toLowerCase().indexOf(text) !== -1 ||
+        port.item_id.toString().toLowerCase().indexOf(text) !== -1;
+    });
+  }
+
+  searchPorts(event: {
+    component: IonicSelectableComponent,
+    text: string
+  }) {
+    let text = event.text.trim().toLowerCase();
+    event.component.startSearch();
+
+    // Close any running subscription.
+    if (this.portsSubscription) {
+      this.portsSubscription.unsubscribe();
+    }
+
+    if (!text) {
+      // Close any running subscription.
+      if (this.portsSubscription) {
+        this.portsSubscription.unsubscribe();
+      }
+
+      event.component.items = [];
+      event.component.endSearch();
+      return;
+    }
+    this.storage.set('ware_id',this.ware_id);
+    this.portsSubscription = this.portService.getPortsAsync().subscribe(ports => {
+      // Subscription will be closed when unsubscribed manually.
+      if (this.portsSubscription.closed) {
+        return;
+      }
+
+      event.component.items = this.filterPorts(ports, text);
+      event.component.endSearch();
+    });
   }
 
   

@@ -13,6 +13,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
 
 
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,6 +25,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     ],
+    
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

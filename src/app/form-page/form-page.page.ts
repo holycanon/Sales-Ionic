@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { error } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { PortService } from '../services/port.service';
+import { Port } from '../types/port';
+import { IonicSelectableComponent } from 'ionic-selectable';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -28,14 +32,18 @@ export class FormPagePage implements OnInit {
   dataPickerCust2:any;
   dataPickerInvoice:any;
   currencyPipe:any;
-
+  selectedItem:any;
   inputRowValues = [];
   deletedRowValues = [];
   dataGrid:any;
+  ports: Port[];
+  port: Port;
+  dataFilter:any;
+  portsSubscription: Subscription;
 
   
   constructor(private storage: Storage,public loadingCtrl: LoadingController, public toastController: ToastController,
-              private http: HttpClient,private router: Router,public navCtrl: NavController) { }
+              private http: HttpClient,private router: Router,public navCtrl: NavController, private portService: PortService) { }
 
   async ngOnInit() {
     await this.storage.get('menu').then((val) => {
@@ -79,9 +87,12 @@ export class FormPagePage implements OnInit {
         }
         if(element.ware_id!="" || element.ware_id!=0){
           console.log(element.ware_id)
-          this.getDataPickerItem(element.ware_id);
+          this.storage.set('ware_id',element.ware_id);
+          await this.getInitialValue()
         }
-      })
+        
+      });
+      
       console.log(this.dataForm);
     });
   }
@@ -108,18 +119,6 @@ export class FormPagePage implements OnInit {
     });
   }
 
-  async getDataPickerItem(ware_id){
-    var formData : FormData = new FormData();
-    formData.set('username',this.username);
-    formData.set('ware_id',ware_id)
-    formData.set('category','item');
-    this.http.post(this.api_url+'picker.php',formData)
-    .subscribe((data)=>{
-      this.dataPickerItem=data['data'];
-      console.log(this.dataPickerItem);
-      // console.log(this.dataPickerSales);
-    });
-  }
 
   async getDataPickerCustomer(sales_id){
     var formData : FormData = new FormData();
@@ -162,13 +161,11 @@ export class FormPagePage implements OnInit {
   }
 
   async saveForm(){
-
     var formData : FormData = new FormData();
     formData.set('username',this.username);
     formData.set('menu',this.menu);
     this.dataForm.forEach(element => {
      formData.set('header',JSON.stringify(element))
-
     });
     formData.set('detail',JSON.stringify(this.inputRowValues));
     formData.set('deleted',JSON.stringify(this.deletedRowValues)); 
@@ -213,6 +210,76 @@ export class FormPagePage implements OnInit {
     
   }
 
+  getInitialValue(){
+    this.portService.getDataItem().then(data => {
+      this.dataPickerItem = data;
+      this.inputRowValues.forEach(element =>{
+        this.dataFilter = this.dataPickerItem.filter(item => {
+         return item.item_id.toString().toLowerCase() == element.item_id
+        })
+        this.dataFilter.forEach(data => {
+          element.item_id = data
+          console.log(element.item_id)
+        })
+      })
+    });
+  }
+
+  filterPorts(ports: Port[], text: string) {
+    return ports.filter(port => {
+      return port.item_desc.toLowerCase().indexOf(text) !== -1 ||
+        port.item_no.toLowerCase().indexOf(text) !== -1 ||
+        port.item_id.toString().toLowerCase().indexOf(text) !== -1;
+    });
+  }
+
+  searchPorts(event: {
+    component: IonicSelectableComponent,
+    text: string
+  }) {
+    let text = event.text.trim().toLowerCase();
+    event.component.startSearch();
+
+    // Close any running subscription.
+    if (this.portsSubscription) {
+      this.portsSubscription.unsubscribe();
+    }
+
+    if (!text) {
+      // Close any running subscription.
+      if (this.portsSubscription) {
+        this.portsSubscription.unsubscribe();
+      }
+
+      event.component.items = [];
+      event.component.endSearch();
+      return;
+    }
+    this.dataForm.forEach(async element => {
+      if(element.ware_id!="" || element.ware_id!=0){
+        console.log(element.ware_id)
+        this.storage.set('ware_id',element.ware_id);
+      }
+    })
+    
+    this.portsSubscription = this.portService.getPortsAsync().subscribe(ports => {
+      // Subscription will be closed when unsubscribed manually.
+      if (this.portsSubscription.closed) {
+        return;
+      }
+      event.component.items = this.filterPorts(ports, text);
+      event.component.endSearch();
+    });
+  }
+
+  portChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    this.selectedItem = event.value;
+
+    console.log(this.selectedItem)
+  }
 
 
 }

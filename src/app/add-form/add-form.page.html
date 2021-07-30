@@ -231,7 +231,7 @@
               <ion-input type="text" [(ngModel)]="doc_extern">{{doc_extern==''?'':''}}</ion-input>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col size="12">
             <ion-list>
               <ion-list-header>
                 <ion-label>
@@ -266,7 +266,7 @@
                   Customer
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;">
+              <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;" class="size-lines">
                 <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
                 </ion-select>  
@@ -294,32 +294,28 @@
                   Invoice
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerInvoice()" style="font-size: 12px;">
+              <ion-item (click)="getDataPickerInvoice()" style="font-size: 12px;" class="size-lines">
                 <ion-select placeholder="Select One" [(ngModel)]="invoice_id"  value="{{invoice_id}}">
                   <ion-select-option *ngFor="let j of dataPickerInvoice" value="{{j.invoice_id}}">{{j.invoice_no}}</ion-select-option>
                 </ion-select>  
               </ion-item>
             </ion-list>
           </ion-col>
-          <ion-col size="12">
-            <ion-item>
-              <ion-label position="floating">Total</ion-label>
-              <ion-input type="decimal" [(ngModel)]="doc_total" readonly></ion-input>
-            </ion-item>
-          </ion-col>
           <ion-col size="6">
             <ion-list>
-              <ion-item class="size-lines">
+              <ion-list-header>
                 <ion-label>
                   PPN
                 </ion-label>
+              </ion-list-header>
+              <ion-item class="size-lines">
                 <ion-select placeholder="Select One" [(ngModel)]="doc_vattype"  value="{{doc_vattype}}" style="font-size: 12px;">
                   <ion-select-option value="2">Include</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-list>
           </ion-col>
-          <ion-col size="6">
+          <ion-col size="12">
             <ion-item>
               <ion-label position="floating">Ongkir</ion-label>
               <ion-input type="decimal" [(ngModel)]="doc_ongkir"></ion-input>
@@ -332,6 +328,7 @@
                   Retur (%)
                 </ion-label>
                 <ion-select placeholder="Select One" [(ngModel)]="doc_returremark"  value="{{doc_returremark}}" style="font-size: 12px;">
+                  <ion-select-option value="0">0</ion-select-option>
                   <ion-select-option value="1">1</ion-select-option>
                   <ion-select-option value="2">2</ion-select-option>
                   <ion-select-option value="3">3</ion-select-option>
@@ -342,7 +339,7 @@
           <ion-col size="12">
             <ion-item class="size-lines" style="font-size: 12px;">
               <ion-label position="floating">Remark</ion-label>
-              <ion-textarea [(ngModel)]="i.doc_remark" value="{{doc_remark}}"></ion-textarea>
+              <ion-textarea [(ngModel)]="doc_remark" value="{{doc_remark}}"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -381,11 +378,12 @@
               <ion-col col-sm>
                 <ion-item style="font-size: 10px;width: 120px;margin-right: 5px;">
                   <ionic-selectable 
-                  [(ngModel)]="data.item_id" [items]="dataPickerItem"
+                  [(ngModel)]="data.item_id" [items]="ports"
                   itemValueField="item_id"
                   itemTextField="item_desc"
                   [canSearch]="true"
-                  [shouldStoreItemValue]="true">
+                  [shouldStoreItemValue]="true"
+                  (onSearch)="searchPorts($event)">
                   <ng-template ionicSelectableTitleTemplate>
                     Item List
                   </ng-template>
