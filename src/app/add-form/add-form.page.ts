@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { PortService } from '../services/port.service';
 import { Port } from '../types/port';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { Customer } from '../types/customer';
 
 
 @Component({
@@ -70,6 +71,9 @@ export class AddFormPage implements OnInit {
   ports: Port[];
   port: Port;
   portsSubscription: Subscription;
+  customersSubscription: Subscription;
+  customers: Customer[];
+  customer: Customer;
 
   
   constructor(private storage: Storage,public loadingCtrl: LoadingController, public toastController: ToastController,
@@ -124,17 +128,17 @@ export class AddFormPage implements OnInit {
     });
   }
 
-  async getDataPickerCustomer(){
-    var formData : FormData = new FormData();
-    formData.set('sales_id',this.sales_id)
-    formData.set('username',this.username);
-    formData.set('category','customer');
-    this.http.post(this.api_url+'picker.php',formData)
-    .subscribe((data)=>{
-      this.dataPickerCust=data['data'];
-      // console.log(this.dataPickerCust);
-    });
-  }
+  // async getDataPickerCustomer(){
+  //   var formData : FormData = new FormData();
+  //   formData.set('sales_id',this.sales_id)
+  //   formData.set('username',this.username);
+  //   formData.set('category','customer');
+  //   this.http.post(this.api_url+'picker.php',formData)
+  //   .subscribe((data)=>{
+  //     this.dataPickerCust=data['data'];
+  //     // console.log(this.dataPickerCust);
+  //   });
+  // }
 
   async getDataPickerCustomer2(){
     var formData : FormData = new FormData();
@@ -255,6 +259,50 @@ export class AddFormPage implements OnInit {
       return port.item_desc.toLowerCase().indexOf(text) !== -1 ||
         port.item_no.toLowerCase().indexOf(text) !== -1 ||
         port.item_id.toString().toLowerCase().indexOf(text) !== -1;
+    });
+  }
+
+  filterCustomers(customers: Customer[], text: string) {
+    return customers.filter(customer => {
+      return customer.cust_name.toLowerCase().indexOf(text) !== -1 ||
+      customer.cust_no.toLowerCase().indexOf(text) !== -1 ||
+      customer.cust_id.toString().toLowerCase().indexOf(text) !== -1;
+    });
+  }
+
+  searchCustomers(event: {
+    component: IonicSelectableComponent,
+    text: string
+  }) {
+    let text = event.text.trim().toLowerCase();
+    event.component.startSearch();
+
+    // Close any running subscription.
+    if (this.customersSubscription) {
+      this.customersSubscription.unsubscribe();
+    }
+
+    if (!text) {
+      // Close any running subscription.
+      if (this.customersSubscription) {
+        this.customersSubscription.unsubscribe();
+      }
+
+      event.component.items = [];
+      event.component.endSearch();
+      return;
+    }
+
+    this.storage.set('sales_id',this.sales_id);
+
+    
+    this.customersSubscription = this.portService.getCustomersAsync().subscribe(customers => {
+      // Subscription will be closed when unsubscribed manually.
+      if (this.customersSubscription.closed) {
+        return;
+      }
+      event.component.items = this.filterCustomers(customers, text);
+      event.component.endSearch();
     });
   }
 

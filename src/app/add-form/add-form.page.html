@@ -121,10 +121,26 @@
                   Customer
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;">
-                <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
+              <ion-item style="font-size: 12px;">
+                <!-- <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
-                </ion-select>  
+                </ion-select>   -->
+                <ionic-selectable 
+                  [(ngModel)]="cust_id" [items]="customers"
+                  itemValueField="cust_id"
+                  itemTextField="cust_name"
+                  [canSearch]="true"
+                  (onSearch)="searchCustomers($event)">
+                  <ng-template ionicSelectableTitleTemplate>
+                    Customer List
+                  </ng-template>
+                  <ng-template ionicSelectableCloseButtonTemplate>
+                    <ion-icon name="close-circle" style="color: white;"></ion-icon>
+                  </ng-template>
+                  <ng-template ionicSelectableItemTemplate let-customer="item">
+                    {{customer.cust_no}} ({{customer.cust_name}})
+                  </ng-template>
+                </ionic-selectable>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -266,10 +282,26 @@
                   Customer
                 </ion-label>
               </ion-list-header>
-              <ion-item (click)="getDataPickerCustomer()" style="font-size: 12px;" class="size-lines">
-                <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
+              <ion-item style="font-size: 12px;" class="size-lines">
+                <!-- <ion-select placeholder="Select One" [(ngModel)]="cust_id"  value="{{cust_id}}">
                   <ion-select-option *ngFor="let j of dataPickerCust" value="{{j.cust_id}}">{{j.cust_no}} ({{j.cust_name}})</ion-select-option>
-                </ion-select>  
+                </ion-select>   -->
+                <ionic-selectable 
+                  [(ngModel)]="cust_id" [items]="customers"
+                  itemValueField="cust_id"
+                  itemTextField="cust_name"
+                  [canSearch]="true"
+                  (onSearch)="searchCustomers($event)">
+                  <ng-template ionicSelectableTitleTemplate>
+                    Customer List
+                  </ng-template>
+                  <ng-template ionicSelectableCloseButtonTemplate>
+                    <ion-icon name="close-circle" style="color: white;"></ion-icon>
+                  </ng-template>
+                  <ng-template ionicSelectableItemTemplate let-customer="item">
+                    {{customer.cust_no}} ({{customer.cust_name}})
+                  </ng-template>
+                </ionic-selectable>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -423,7 +455,7 @@
       </ion-list>
     </div>
     <!-- <h4>Results</h4>
-    <pre style="font-size:smaller"> {{inputRowValues | json}} </pre> -->
+    <pre style="font-size:smaller"> {{dataForm | json}} </pre> -->
   </div>
 </ion-content>
 <ion-footer>
