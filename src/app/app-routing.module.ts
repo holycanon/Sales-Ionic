@@ -5,7 +5,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'white-screen',
     pathMatch: 'full'
   },
   {
@@ -19,13 +19,18 @@ const routes: Routes = [
   {
     path: 'sales-order',
     loadChildren: () => import('./sales-order/sales-order.module').then( m => m.SalesOrderPageModule)
-  },  {
+  },
+  {
     path: 'form-page',
     loadChildren: () => import('./form-page/form-page.module').then( m => m.FormPagePageModule)
   },
   {
     path: 'add-form',
     loadChildren: () => import('./add-form/add-form.module').then( m => m.AddFormPageModule)
+  },
+  {
+    path: 'white-screen',
+    loadChildren: () => import('./white-screen/white-screen.module').then( m => m.WhiteScreenPageModule)
   },
 
 ];

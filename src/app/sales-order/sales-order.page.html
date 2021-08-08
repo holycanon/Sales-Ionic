@@ -39,8 +39,14 @@
     <div class="tab_container">
       <div *ngFor="let i of data">
         <ion-list lines="none">
-            <ion-item (click)="alertEdit(i.doc_id)">
+            <ion-item>
               <div class="item_container">
+                <div style="margin-bottom:10px;margin-top:-20px">
+                  <p><ion-button  shape="round" color="danger" (click)=alertDelete(i.doc_id)>
+                    <ion-icon slot="icon-only" name="close-circle-outline" color="light"></ion-icon>
+                    </ion-button>
+                  </p>
+                </div>
                 <div class="syllabus">
                   <h3>Doc No&nbsp;&nbsp;: {{i.doc_no}}</h3>
                   <h5>Customer&nbsp;: {{i.cust_desc}}</h5>
@@ -54,7 +60,7 @@
                       {{i.flow_state}}
                     </p>
                   </ion-col>
-                  <ion-col size="5" class="ion-text-end">
+                  <ion-col size="5" class="ion-text-end" (click)="alertEdit(i.doc_id)">
                     <div class="edit">
                       Edit
                     </div>

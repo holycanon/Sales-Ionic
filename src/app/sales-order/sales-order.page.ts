@@ -83,6 +83,19 @@ export class SalesOrderPage implements OnInit {
     this.router.navigate(['/form-page']);
   }
 
+  async sendDelete(doc_id){
+    console.log(doc_id);
+    var formData : FormData = new FormData();
+    formData.set('menu',this.menu);
+    formData.set('username',this.username);
+    formData.set('doc_id',doc_id);
+    this.http.post(this.api_url+'delete.php',formData)
+    .subscribe(response => {
+      this.filterSearch();
+      this.presentToast(response['message']);
+    })
+  }
+
   async alertEdit(doc_id) {
     const alert = await this.alertCtrl.create({
       header: 'Confirmation',
@@ -114,6 +127,31 @@ export class SalesOrderPage implements OnInit {
 
   addForm(){
     this.router.navigateByUrl('/add-form');
+  }
+
+  async alertDelete(doc_id){
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmation',
+      message: 'Are you sure want to delete this document ?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'OK',
+          handler: () => {
+            this.sendDelete(doc_id);
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async presentToast(Message) {

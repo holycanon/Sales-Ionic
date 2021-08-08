@@ -1,0 +1,40 @@
+ion-input{
+    margin-top: 0px;
+}
+ion-label {
+    position: relative;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    opacity: .4;
+    transform: all .5s;
+
+}
+
+.size-lines{
+    margin-right: 20px;
+}
+
+
+ion-grid {
+    --ion-grid-column-padding: 10px;
+    border-collapse: collapse;
+    border-style: hidden;
+    margin-top: 15px;
+    
+    ion-row:first-child {
+      background-color:  #fcfdfc;
+      font-weight: bold;
+    }
+    ion-col {
+      border: 1px solid black;
+      border-bottom: 1px;
+      border-right: 0;
+    }
+    ion-col:last-child {
+      border-right: 1px solid black;
+    }
+    
+    ion-row:last-child {
+      border-bottom: 1px solid black;
+    }
+  }

@@ -1,6 +1,6 @@
 <ion-header class="bg_transparent">
 	<ion-toolbar>
-		<ion-title><h1 style="font-family: Arial, Helvetica, sans-serif;" align="center" style="margin-top: 40px;">Login</h1></ion-title>
+		<ion-title>Login</ion-title>
 	</ion-toolbar>
 </ion-header>
 
@@ -48,11 +48,12 @@
     <ion-button (click)="openAppleSignIn()" *ngIf="showAppleSignIn" style="width:70%;" color="primary">Sign In with Apple</ion-button> -->
 
     <!-- New Template -->
-    <!-- <div class="banner">
+    <div class="banner">
       <div class="logo">
-        <img src="assets/images/logo.png">
+        <!-- <img src="assets/images/logo.png"> -->
+        <h1 style="font-family: Arial, Helvetica, sans-serif;" align="center" style="margin-top: 40px;">Login</h1>
       </div>
-    </div> -->
+    </div>
   
     <div class="form">
       <form [formGroup]="FormLogin">
