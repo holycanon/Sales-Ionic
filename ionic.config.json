@@ -1,7 +1,8 @@
 {
   "name": "Sales-Ionic",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
