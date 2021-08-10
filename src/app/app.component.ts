@@ -7,12 +7,16 @@ import { Platform, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 // import { OneSignal } from '@ionic-native/onesignal/ngx';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
   constructor(private http: HttpClient,private storage: Storage,private alertCtrl: AlertController,
     private router: Router,private platform: Platform,) {}
+
+
 }

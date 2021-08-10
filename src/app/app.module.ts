@@ -10,12 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/Storage';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, } from '@angular/forms';
 import { IonicSelectableModule } from 'ionic-selectable';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,IonicSelectableModule,
     IonicStorageModule.forRoot({
@@ -23,7 +24,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
       driverOrder: ['localstorage']
     }),],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },AppVersion, 
     ],
     
   bootstrap: [AppComponent],
